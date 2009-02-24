@@ -27,5 +27,14 @@ sub retrieve_cache{
 	return $val if($val);
 }
 
+sub is_cached{
+	my $self = shift;
+	my $id     = shift;
+	my $val = $self->memcached->get($id);
+	return 1 if($val);
+	return 1;
+}
+
+
 
 1; 
