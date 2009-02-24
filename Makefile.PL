@@ -12,6 +12,7 @@ WriteMakefile(
       : ()),
     PL_FILES            => {},
     PREREQ_PM => {
+	'Cache::Memcached::Fast' =>0,
 	'CGI' => 0,
 	'LWP' => 0,
 	'Digest::MD5' => 0,

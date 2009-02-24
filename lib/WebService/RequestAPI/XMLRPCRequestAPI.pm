@@ -6,13 +6,12 @@ use utf8;
 use base qw(WebService::RequestAPI::AbstractRequestAPI);
 
 
-sub request{
+sub _request{
 	my $self = shift;
-	my $url = shift;
 	my $method = shift;
-	my $args = shift;
-
-	$self->result(XMLRPC::Lite->proxy($url)->call($method, $args)->result);
+	my $url = shift;
+	my @args = @_;
+	$self->result(XMLRPC::Lite->proxy($url)->call($method,@args)->result);
 
 	return $self;
 }

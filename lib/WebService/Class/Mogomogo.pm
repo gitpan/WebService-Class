@@ -4,7 +4,6 @@ use strict;
 use base qw(WebService::Class::Twitter);
 __PACKAGE__->base_url("http://api.mogo2.jp/");
 
-
 sub init{
 	my $self = shift;
 	$self->SUPER::init(@_);

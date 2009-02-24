@@ -1,4 +1,4 @@
-package WebService::BaseClass::AbstractCacheManager;
+package WebService::Cache::AbstractCacheManager;
 use strict;
 use Digest::MD5 qw(md5_hex);
 use base qw(Class::Data::Inheritable Class::Accessor);
@@ -13,6 +13,10 @@ sub new{
 
 sub init{
 	my $self = shift;
+	my %args = @_;
+	if(exists $args{'lifetime'}){
+		$self->lifetime($args{'lifetime'});
+	}
 }
 
 sub store_cache{
@@ -23,7 +27,7 @@ sub store_cache{
 
 sub retrieve_cache{
 	my $self    = shift;
-	my $id     = shift;
+	my $id      = shift;
 }
 
 sub is_cached{
@@ -34,18 +38,16 @@ sub is_cached{
 
 sub create_cache_id{
 	my $self = shift;
-	my $url  = shift;
-	my $args = shift;
-	my $auth = shift;
-	my $id = $url;
-	foreach my $key (keys %{$args}){
-		$id .= $key.$args->{$key};
-	}
-	foreach my $key (keys %{$auth}){
-		$id .= $key.$auth->{$key};
+	my $id;
+	foreach my $arg (sort {$a <=>$b} @_){
+		if(ref $arg eq "HASH"){
+			$id .= join ':',sort {$a <=> $b} values %{$arg};
+		}
+		else{
+			$id .=$arg;
+		}
 	}
 	return md5_hex($id);
 }
-
 
 1; 

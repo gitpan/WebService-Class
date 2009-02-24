@@ -3,6 +3,7 @@ use warnings;
 use strict;
 use base qw(WebService::Class::AbstractHTTPRequestClass);
 __PACKAGE__->base_url('http://twitter.com/');
+
 sub init{
 	my $self = shift;
 	$self->SUPER::init(@_);
@@ -21,79 +22,67 @@ sub init{
 	});
 }
 
-
 sub public_timeline{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'public_timeline'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'public_timeline'},{},$self->username,$self->password)->parse_xml();
 }
+
 sub friend_timeline{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'friend_timeline'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'friend_timeline'},{},$self->username,$self->password)->parse_xml();
 }
 
 sub user_timeline{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'user_timeline'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'user_timeline'},{},$self->username,$self->password)->parse_xml();
 }
 
 sub friends{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'friends'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'friends'},{},$self->username,$self->password)->parse_xml();
 }
 
 sub replies{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'replies'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'replies'},{},$self->username,$self->password)->parse_xml();
 }
 
 sub followers{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'followers'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'followers'},{},$self->username,$self->password)->parse_xml();
 }
 
 
 sub featured{
 	my $self = shift;
-	my $auth = shift;
-	return $self->request_api()->request('GET',$self->urls->{'featured'},{},$auth)->parse_xml();
+	return $self->request_api()->request('GET',$self->urls->{'featured'},{},$self->username,$self->password)->parse_xml();
 }
 
 
 sub show_users{
 	my $self = shift;
-	my $auth = shift;
 	my $id   = shift;
-	return $self->request_api()->request('POST',sprintf($self->urls->{'show_users'},$id),{},$auth)->parse_xml();
+	return $self->request_api()->request('POST',sprintf($self->urls->{'show_users'},$id),{},$self->username,$self->password)->parse_xml();
 }
 
 
 
 sub show_status{
 	my $self = shift;
-	my $auth = shift;
 	my $id   = shift;
-	return $self->request_api()->request('POST',sprintf($self->urls->{'show_status'},$id),{},$auth)->parse_xml();
+	return $self->request_api()->request('POST',sprintf($self->urls->{'show_status'},$id),{},$self->username,$self->password)->parse_xml();
 }
 
 sub update_status{
 	my $self = shift;
-	my $auth = shift;
 	my $status = shift;
-	return $self->request_api()->request('POST',$self->urls->{'update_status'},{'status'=>$status},$auth)->parse_xml();
+	return $self->request_api()->request('POST',$self->urls->{'update_status'},{'status'=>$status},$self->username,$self->password)->parse_xml();
 }
 
 sub destroy_status{
 	my $self = shift;
-	my $auth = shift;
 	my $id   = shift;
-	return $self->request_api()->request('POST',sprintf($self->urls->{'destroy_status'},$id),{},$auth)->parse_xml();
+	return $self->request_api()->request('POST',sprintf($self->urls->{'destroy_status'},$id),{},$self->username,$self->password)->parse_xml();
 }
-
 
 1; 

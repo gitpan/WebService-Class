@@ -7,9 +7,9 @@ __PACKAGE__->base_url('http://api.technorati.jp/');
 __PACKAGE__->mk_accessors(qw(key));
 sub init{
 	my $self = shift;
+	my %args = @_;
 	$self->SUPER::init(@_);
-	my $key = shift;
-	$self->key($key);
+	$self->key($args{'key'});
 }
 
 
